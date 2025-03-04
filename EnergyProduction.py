@@ -54,7 +54,7 @@ class EnergyProductionSimulator:
         X_poly = poly.fit_transform(X)
         
         X_train, X_test, y_train_fossil, y_test_fossil = train_test_split(X_poly, y_fossil, test_size=0.2, random_state=42)
-        _, _, y_train_renewable, y_test_renewable = train_test_split(X_poly, y_renewable, test_size=0.5, random_state=42)
+        _, _, y_train_renewable, y_test_renewable = train_test_split(X_poly, y_renewable, test_size=0.2, random_state=42)
         
         fossil_model = LinearRegression()
         fossil_model.fit(X_train, y_train_fossil)
