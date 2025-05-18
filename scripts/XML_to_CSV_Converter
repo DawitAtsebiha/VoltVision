@@ -1,0 +1,45 @@
+import xml.etree.ElementTree as ET
+import pandas as pd
+from datetime import timedelta
+from typing import List, Dict
+import pathlib
+
+def parse_xml(path: pathlib.Path) -> pd.DataFrame:
+    """
+    Parse an IESO PUB_GenOutputbyFuelHourly_YYYY.xml file into a tidy DataFrame.
+
+    Columns: Datetime (index), Nuclear, Gas, Hydro, Wind, Solar, Biofuel, ...
+    """
+    # wildcard namespace helper
+    def xp(tag):  # build xpath that ignores namespace
+        return f".//*[local-name()='{tag}']"
+
+    records: List[Dict] = []
+    tree = ET.parse(path)
+    root = tree.getroot()
+
+    for daily in root.findall(xp("DailyData")):
+        day_str = daily.findtext(xp("Day"))          # e.g. '2017-01-01'
+        if not day_str:
+            continue
+        day_date = pd.to_datetime(day_str)
+
+        for hd in daily.findall(xp("HourlyData")):
+            hour_num = int(hd.findtext(xp("Hour")))  # 1–24 (hour-ending)
+            ts = day_date + timedelta(hours=hour_num - 1)
+
+            row = {"Datetime": ts}
+            for ft in hd.findall(xp("FuelTotal")):
+                fuel_name = ft.findtext(xp("Fuel")).title()      # 'NUCLEAR' -> 'Nuclear'
+                output = float(ft.findtext(f"{xp('EnergyValue')}/{xp('Output')}"))
+                row[fuel_name] = output
+            records.append(row)
+
+    if not records:
+        raise ValueError(f"No hourly records found in {path.name}")
+
+    df = (pd.DataFrame(records)
+            .set_index("Datetime")
+            .sort_index()
+            .asfreq("H"))        # guarantee full hourly index
+    return df
