@@ -1,13 +1,14 @@
 # VoltVision
 
 ## Pip Installs
-pip install requests\\
-pip install bs4\\
-pip install pandas\\
-pip install lxml\\
-pip install statsmodels\\
-pip install numpy\\
-pip install seaborn\\
+pip install requests  
+pip install bs4  
+pip install pandas  
+pip install lxml  
+pip install statsmodels  
+pip install numpy  
+pip install seaborn  
+
 
 
 ## Setting Up the Data
