@@ -1,22 +1,22 @@
-### VoltVision
+# VoltVision
 
-# Pip Installs
-pip install requests
-pip install bs4
-pip install pandas
-pip install lxml
-pip install statsmodels
-pip install numpy
-pip install seaborn
+## Pip Installs
+pip install requests\\
+pip install bs4\\
+pip install pandas\\
+pip install lxml\\
+pip install statsmodels\\
+pip install numpy\\
+pip install seaborn\\
 
 
-# Setting Up the Data
+## Setting Up the Data
 
 To download the IESO public data or change the source of data, run/edit the IESO_Data_Download.py file.
 
 This will then store all downloaded files in the ieso_raw file, this contains all the files in their original filename state.
 
-# Converting Raw Data
+## Converting Raw Data
 
 As some of the files can be .XML files which are hard to parse, running XML_to_CSV_Converter.py will convert all the .XML files and store them in a folder.
 
@@ -31,7 +31,7 @@ Ctrl + C at any point will cancel the conversion/movement of files.
 If you do prefer to use the raw .XML file, that will still be available in the original raw data folder. However all CSVs would be moved to maintain data singularity in folders. This will also create a master CSV file for the moved .XML files.
 
 
-# Running the Machine Learning Model
+## Running the Machine Learning Model
 
 To run the machine learning model with the data us the format:
 
