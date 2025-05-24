@@ -13,9 +13,11 @@ pip install seaborn
 
 ## Setting Up the Data
 
-To download the IESO public data or change the source of data, run/edit the IESO_Data_Download.py file.
+To download the public data that is used for this model or change the source of data, run/edit the data_download.py file.
 
-This will then store all downloaded files in the ieso_raw file, this contains all the files in their original filename state.
+This will open a popup window which will display the progress of the files downloading and then store all downloaded files into a created data_raw file, this contains all the files in their original filename state.
+
+Closing the window at any point will cancel the downloading of data, please note that if you stop the data download without finishing the download you will need to restart the download from the beginning.
 
 ## Converting Raw Data
 
